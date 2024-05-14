@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log Search</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        form {
+            margin-bottom: 20px;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-gap: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 3px;
+            font-size: 17px;
+            font-family:'Times New Roman', Times, serif;
+        }
+        select, input[type="text"], input[type="datetime-local"] {
+            width: calc(100% - 12px);
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button[type="submit"] {
+            background-color: rgb(103, 206, 235);
+            color: black;
+            font-weight: bold;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px; 
+            grid-column: span 2;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-gap: 20px;
+        }
+        li {
+            border: 1px solid gray;
+            padding: 7px;
+            border-radius: 8px;
+        }
+        strong {
+            color: #333;
+            font-family: 'Times New Roman', Times, serif;
+        }
+        .logo {
+            width: 200px; /* Set width */
+            margin-left: 300px;
+            height: 160px;
+            margin-top: -30px;
+           
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img class="logo" src="https://i.ibb.co/x5xDbYD/chat360-logo-removebg-preview.png" alt="Chat360 Logo"> <!-- Add image here -->
+        <form method="GET">
+            <div>
+                <label for="level">Level</label>
+                <select id="level" name="level">
+                    <option value="">Any</option>
+                    <option value="info">Info</option>
+                    <option value="error">Error</option>
+                    <option value="success">Success</option>
+                </select>
+            </div>
+            <div>
+                <label for="log_string">Log String</label>
+                <input type="text" id="log_string" name="log_string">
+            </div>
+            <div>
+                <label for="timestamp_start">Start Date</label>
+                <input type="text" id="timestamp_start" name="timestamp_start">
+            </div>
+            <div>
+                <label for="timestamp_end">End Date</label>
+                <input type="text" id="timestamp_end" name="timestamp_end">
+            </div>
+            <div>
+                <label for="source">Source</label>
+                <input type="text" id="source" name="source">
+            </div>
+            <button type="submit">Search</button>
+        </form>
+        {% if logs %}
+            <ul>
+                {% for log in logs %}
+                    <li>
+                        <p><strong>Level:</strong> {{ log.level }}</p>
+                        <p><strong>Log String:</strong> {{ log.log_string }}</p>
+                        <p><strong>Timestamp:</strong> {{ log.timestamp }}</p>
+                        <p><strong>Source:</strong> {{ log.source }}</p>
+                        <p><strong>Metadata:</strong> {{ log.metadata }}</p>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No logs found.</p>
+        {% endif %}
+    </div>
+</body>
+</html>
