@@ -2,6 +2,8 @@
 
 In this repository, I've created an API with Backend 🛠️ and integrated the Frontend 🖥️ along with search functionality 🔍.
 
+Vide Link <a href="https://drive.google.com/file/d/1-6uYGZaVvHkqmSdHlxiVjjcdE_EgHx_y/view?usp=sharing" >Click Here</a>
+
 ## Features Added 
 
  - We can easily add data using Postman in given JSON format. 
@@ -60,7 +62,7 @@ Follow the below steps to run the code:
    - Open Postman.
    - Post data using the below format and URL:
      ```
-     URL: http://127.0.0.1:8000/api/log3
+     URL: http://127.0.0.1:8000/api/log3/
      Method: POST
      Body:
      {
