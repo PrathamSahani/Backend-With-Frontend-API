@@ -16,10 +16,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from home.views import *
+from home.views import log_search, log_ingestor, log_delete
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', log_search),
     path('api/<str:log_source>/', log_ingestor, name='log_ingestor'),
+    path('api/log/<int:log_id>/', log_delete, name='log_delete'),
 ]

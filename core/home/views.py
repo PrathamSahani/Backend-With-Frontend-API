@@ -1,15 +1,8 @@
-# logs/views.py
-
-import re
-from django.shortcuts import render
-from django.db.models import Q
-from .models import Log
-
 import json
+from django.shortcuts import render
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-
-
+from .models import Log
 
 @csrf_exempt
 def log_ingestor(request, log_source):
@@ -29,6 +22,19 @@ def log_ingestor(request, log_source):
     else:
         return JsonResponse({'error': 'Only POST requests are allowed'}, status=405)
 
+@csrf_exempt
+def log_delete(request, log_id):
+    if request.method == 'DELETE':
+        try:
+            log = Log.objects.get(pk=log_id)
+            log.delete()
+            return JsonResponse({'message': 'Log deleted successfully'}, status=204)
+        except Log.DoesNotExist:
+            return JsonResponse({'error': 'Log does not exist'}, status=404)
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=400)
+    else:
+        return JsonResponse({'error': 'Only DELETE requests are allowed'}, status=405)
 
 def log_search(request):
     level = request.GET.get('level', '')
